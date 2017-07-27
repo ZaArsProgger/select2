@@ -130,6 +130,13 @@ define([
 
     var offset = this.$container.offset();
 
+
+    function debug(object) {
+      console.log(object.$container.offset(), object.$container.height(), object.$dropdown.offset(), object.$dropdown.height());
+    }
+
+    debug(this);
+
     offset.bottom = offset.top + this.$container.outerHeight(false);
 
     var container = {
@@ -194,7 +201,16 @@ define([
         .addClass('select2-container--' + newDirection);
     }
 
+    dropdown_offset = this.$dropdown.offset();
+    dropdown_offset.top = (newDirection == 'above' ||
+      (isCurrentlyAbove && newDirection !== 'below')) ?
+      this.$container.offset().top - this.$dropdown.height() - this.$container.height(): this.$container.offset().top + this.$container.height();
+    this.$dropdown.offset(dropdown_offset);
+
     this.$dropdownContainer.css(css);
+
+    debug(this);
+
   };
 
   AttachBody.prototype._resizeDropdown = function () {
