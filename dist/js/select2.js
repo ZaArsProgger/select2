@@ -4152,6 +4152,7 @@ S2.define('select2/dropdown/attachBody',[
     container.on('open', function () {
       self._showDropdown();
       self._attachPositioningHandler(container);
+      self._positionDropdown(); // Need for dropdown bug fix
 
       if (!setupResultsEvents) {
         setupResultsEvents = true;
@@ -4264,13 +4265,6 @@ S2.define('select2/dropdown/attachBody',[
 
     var offset = this.$container.offset();
 
-
-    function debug(object) {
-      console.log(object.$container.offset(), object.$container.height(), object.$dropdown.offset(), object.$dropdown.height());
-    }
-
-    debug(this);
-
     offset.bottom = offset.top + this.$container.outerHeight(false);
 
     var container = {
@@ -4342,8 +4336,6 @@ S2.define('select2/dropdown/attachBody',[
     this.$dropdown.offset(dropdown_offset);
 
     this.$dropdownContainer.css(css);
-
-    debug(this);
 
   };
 
